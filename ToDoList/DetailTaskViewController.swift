@@ -58,14 +58,14 @@ extension DetailTaskViewController: UITableViewDataSource, UITableViewDelegate {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "SubTask") else { return UITableViewCell() }
         guard let currentTask = currentTask else { return UITableViewCell() }
         
-        cell.textLabel?.text = currentTask.subTasksDescription.names[indexPath.row]
-        cell.detailTextLabel?.text = "Подзадачи: \(currentTask.subTasksDescription.countOfSubTasks[indexPath.row])"
+        cell.textLabel?.text = currentTask.subTasks[indexPath.row].name
+        cell.detailTextLabel?.text = "Подзадачи: \(currentTask.subTasks[indexPath.row].countOfSubTasks)"
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let vc = storyboard?.instantiateViewController(withIdentifier: "DetailTaskVC") as! DetailTaskViewController
-        guard let currentTask = currentTask as? KernelTask else { return }
+        guard let currentTask = currentTask else { return }
         vc.currentTask = currentTask.subTasks[indexPath.row]
         navigationController?.pushViewController(vc, animated: true)
     }
